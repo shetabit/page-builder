@@ -1,0 +1,43 @@
+{
+    "name": "shetabit/pagebuilder",
+    "description": ":description",
+    "license": "license",
+    "authors": [
+        {
+            "name": "author name",
+            "email": "author email",
+            "homepage": "author homepage"
+        }
+    ],
+    "homepage": "https://github.com/shetabit/pagebuilder",
+    "keywords": ["Laravel", "PageBuilder"],
+    "require": {
+        "illuminate/support": "~5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3.0",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shetabit\\PageBuilder\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Shetabit\\PageBuilder\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Shetabit\\PageBuilder\\PageBuilderServiceProvider"
+            ],
+            "aliases": {
+                "PageBuilder": "Shetabit\\PageBuilder\\Facades\\PageBuilder"
+            }
+        }
+    }
+}
