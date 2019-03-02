@@ -11,6 +11,6 @@
 |
 */
 
-Route::group(['namespace' => 'Shetabit\PageBuilder\Http\Controllers'], function() {
+Route::group(['namespace' => 'Shetabit\PageBuilder\Http\Controllers', 'as' => 'shetabit.'], function() {
     Route::resource(config('pagebuilder.routes'), 'HomeController');
 });
