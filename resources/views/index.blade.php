@@ -1,4 +1,4 @@
-@extends('shetabit-components::master')
+@extends('shetabit-base::master')
 
 @push('app-methods')
 <script>
@@ -44,7 +44,7 @@
     App.pages.pages = {
         items: JSON.parse('{!! addslashes(mb_json_encode($pages)) !!}'),
         edit: {},
-        path: '{!! route("shetabit.pages.index") !!}'
+        path: "{!! route('shetabit.page-builder.pages.index') !!}"
     }
 </script>
 
@@ -75,7 +75,7 @@
                 </code>
                 <div class="clearfix"></div>
             </div>
-            <form :action="'{{ route('shetabit.pages.index') }}/' + pages.pages.edit.id" method="post" class="js-submit-form" data-on-success="updatePage">
+            <form :action="'{{ route('shetabit.page-builder.pages.index') }}/' + pages.pages.edit.id" method="post" class="js-submit-form" data-on-success="updatePage">
                 <div class="form-group">
                     <label for="edit-title">عنوان</label>
                     <input id="edit-title" name="title" type="text" class="form-control" :value="pages.pages.edit.title" data-required>
@@ -132,7 +132,7 @@
 <modal-full id="new-page">
     <p slot="title">ثبت صفحه جدید</p>
     <div slot="body">
-        <form action="{{ route('shetabit.pages.index') }}" method="post" class="js-submit-form" data-on-success="newPage" data-clear-onsuccess="true">
+        <form action="{{ route('shetabit.page-builder.pages.index') }}" method="post" class="js-submit-form" data-on-success="newPage" data-clear-onsuccess="true">
             <div class="form-group">
                 <label for="title">عنوان</label>
                 <input id="title" name="title" type="text" class="form-control" data-required>
@@ -178,7 +178,7 @@
 @endsection
 
 @push('scripts')
-<script src="{!! config('components.assets_path') !!}/editors/ckeditor/ckeditor.js"></script>
+<script src="{!! config('base.assets_path') !!}/editors/ckeditor/ckeditor.js"></script>
 <script>
     $(document).ready(function(){
         CKEDITOR.replace('contents');

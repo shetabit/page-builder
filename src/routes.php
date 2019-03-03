@@ -11,6 +11,7 @@
 |
 */
 
-Route::group(['namespace' => 'Shetabit\PageBuilder\Http\Controllers', 'as' => 'shetabit.'], function() {
-    Route::resource(config('pagebuilder.routes'), 'HomeController');
+Route::group(['namespace' => 'Shetabit\PageBuilder\Http\Controllers', 'as' => 'shetabit.page-builder.'], function() {
+    Route::resource(config('pagebuilder.route_categories'), 'PageCategoriesController');
+    Route::resource(config('pagebuilder.route_pages'), 'PagesController');
 });
