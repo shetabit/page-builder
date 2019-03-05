@@ -2,9 +2,9 @@
 
 namespace Shetabit\PageBuilder\Http\Controllers;
 
-use App\Classes\Response;
 use Illuminate\Http\Request;
 use Shetabit\PageBuilder\Page;
+use Shetabit\Response\Response;
 use App\Http\Controllers\Controller;
 use Shetabit\PageBuilder\PagesRepository;
 use Shetabit\PageBuilder\PageCategoriesRepository;
@@ -31,7 +31,8 @@ class PagesController extends Controller
     public function index()
     {
         return view('shetabit-pagebuilder::index', [
-            'pages' => $this->pages->all()
+            'pages' => $this->pages->all(),
+            'categories' => $this->categories->all()
         ]);
     }
 
@@ -108,8 +109,9 @@ class PagesController extends Controller
      */
     public function destroy(Page $page)
     {
-        $page->delete();
+        if ($page->delete()) {
+            return Response::success('حذف شد');
+        }
 
-        return Response::success('حذف شد');
     }
 }

@@ -58,7 +58,7 @@ class PageBuilderServiceProvider extends ServiceProvider
     {
         // Publishing the configuration file.
         $this->publishes([
-            __DIR__.'/../config/pagebuilder.php' => config_path('pagebuilder.php'),
+            __DIR__.'/../config/pagebuilder.php' => config_path('shetabit/pagebuilder.php'),
         ], 'pagebuilder.config');
 
         // Publishing the views.
@@ -66,10 +66,9 @@ class PageBuilderServiceProvider extends ServiceProvider
             __DIR__.'/../resources/views' => base_path('resources/views/vendor/shetabit'),
         ], 'pagebuilder.views');*/
 
-        // Publishing assets.
-        /*$this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/shetabit'),
-        ], 'pagebuilder.views');*/
+        $this->publishes([
+            __DIR__.'/../resources/assets' => public_path('vendor/shetabit-pagebuilder/assets'),
+        ], 'pagebuilder.views');
 
         // Publishing the translation files.
         /*$this->publishes([

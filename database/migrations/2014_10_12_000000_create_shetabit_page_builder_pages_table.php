@@ -15,8 +15,10 @@ class CreateShetabitPageBuilderPagesTable extends Migration
     {
         Schema::create('shetabit_page_builder_pages', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title', 1024);
             $table->unsignedInteger('creator_id')->nullable();
             $table->unsignedTinyInteger('category_id')->nullable();
+            $table->string('brief_text', 1024)->nullable();
             $table->longText('content')->nullable();
             $table->char('thumbnail', 5)->nullable();
             $table->unsignedTinyInteger('status');

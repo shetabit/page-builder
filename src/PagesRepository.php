@@ -10,4 +10,10 @@ class PagesRepository extends Repository
     {
         return \Shetabit\PageBuilder\Page::class;
     }
+
+
+    public function all()
+    {
+        return $this->model->with('category')->get();
+    }
 }

@@ -2,20 +2,21 @@
 
 namespace Shetabit\PageBuilder\Http\Controllers;
 
-use App\Classes\Response;
 use Illuminate\Http\Request;
+use Shetabit\Response\Response;
 use App\Http\Controllers\Controller;
+use Shetabit\PageBuilder\PageCategory;
 use Shetabit\PageBuilder\PageCategoriesRepository;
 use Shetabit\PageBuilder\Http\Requests\PageCategoriesRequest;
 
 class PageCategoriesController extends Controller
 {
 
-    private $pageCategories;
+    private $categories;
 
-    public function __construct(PageCategoriesRepository $pageCategories)
+    public function __construct(PageCategoriesRepository $categories)
     {
-        $this->pageCategories = $pageCategories;
+        $this->categories = $categories;
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +26,7 @@ class PageCategoriesController extends Controller
     public function index()
     {
         return view('shetabit-pagebuilder::categories', [
-            'categories' => $this->pageCategories->all()
+            'categories' => $this->categories->all()
         ]);
     }
 
@@ -47,8 +48,8 @@ class PageCategoriesController extends Controller
      */
     public function store(PageCategoriesRequest $request)
     {
-        $item = $this->pageCategories->create(
-            $request->only($this->pageCategories->model->getFillable())
+        $item = $this->categories->create(
+            $request->only($this->categories->model->getFillable())
         );
 
         return Response::success('دسته‌بندی با موفقیت ثبت شد', $item);
@@ -83,11 +84,12 @@ class PageCategoriesController extends Controller
      * @param  \App\PageCategory  $pageCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PageCategory $pageCategory)
+    public function update(PageCategoriesRequest $request, PageCategory $pageCategory)
     {
-        $this->authorize('update', $pageCategory);
+        $item = $this->categories->update(
+            $pageCategory, $request->only($pageCategory->getFillable())
+        );
 
-        $item = $this->pageCategories->update($request, $pageCategory);
         return Response::success('دسته‌بندی با موفقیت ویرایش شد', $item);
     }
 
@@ -99,8 +101,8 @@ class PageCategoriesController extends Controller
      */
     public function destroy(PageCategory $pageCategory)
     {
-        $this->authorize('delete', $pageCategory);
         $pageCategory->delete();
+
         return Response::success('دسته‌بندی حذف شد');
     }
 }

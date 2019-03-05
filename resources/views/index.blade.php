@@ -9,18 +9,17 @@
         $('.modal').modal('hide');
     }
 
-    AppMethods.showPage = function()
-    {
+    AppMethods.showPage = function() {
         var index = $('select#pages').val();
         if(index !== '') {
             var form = App.pages.pages.items[index];
             Vue.set(form, 'index', index);
             Vue.set(App.pages.pages, 'edit', form);
             setTimeout(function(){
-                if($('#cke_edit-contents').length == 0) {
-                    CKEDITOR.replace('edit-contents');
+                if($('#cke_edit-content').length == 0) {
+                    CKEDITOR.replace('edit-content');
                 }
-                CKEDITOR.instances['edit-contents'].setData(App.pages.pages.edit.contents);
+                CKEDITOR.instances['edit-content'].setData(App.pages.pages.edit.content);
             }, 100);
         }
     }
@@ -85,14 +84,16 @@
                     <textarea id="edit-brief-text" name="brief_text" maxlength="255" class="form-control" :value="pages.pages.edit.brief_text"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="edit-contents">متن</label>
-                    <textarea id="edit-contents" name="contents" data-required></textarea>
+                    <label for="edit-content">متن</label>
+                    <textarea id="edit-content" name="content" data-required></textarea>
                 </div>
                 <div class="row form-group">
                     <div class="col-md-3">
                         <label for="edit-category_id">دسته‌بندی</label>
                         <select name="category_id" id="edit-category_id" class="form-control">
-
+                            @foreach($categories as $category)
+                            <option value="{{ $category->id }}" :selected="pages.pages.edit.category_id == {{ $category->id }}">{{ $category->title }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -103,15 +104,11 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <label for="edit-priority">اولویت</label>
-                        <input id="edit-priority" name="priority" type="number" class="form-control" :value="pages.pages.edit.priority" data-required>
-                    </div>
-                    <div class="col-md-3">
                         <div class="form-group pull-left">
-                            <label for="edit-image">تصویر جدید</label>
-                            <input type="file" name="image" id="edit-image">
+                            <label for="edit-thumbnail">تصویر جدید</label>
+                            <input type="file" name="thumbnail" id="edit-thumbnail">
                         </div>
-                        <img v-if="pages.pages.edit.image" :src="base_url + '/assets/images/pages/' + pages.pages.edit.image + '.jpg'" class="pull-right thumbnail thumb-md">
+                        <img v-if="pages.pages.edit.thumbnail" :src="'{{ config('shetabit.pagebuilder.img_dir') }}/' + pages.pages.edit.thumbnail + '.jpg'" class="pull-right thumbnail thumb-md">
                         <div class="clearfix"></div>
                         <br>
                     </div>
@@ -142,14 +139,16 @@
                 <textarea id="brief-text" name="brief_text" maxlength="255" class="form-control"></textarea>
             </div>
             <div class="form-group">
-                <label for="contents">متن</label>
-                <textarea id="contents" name="contents" data-required></textarea>
+                <label for="content">متن</label>
+                <textarea id="content" name="content" data-required></textarea>
             </div>
             <div class="row form-group">
                 <div class="col-md-3">
                     <label for="category_id">دسته‌بندی</label>
                     <select name="category_id" id="category_id" class="form-control">
-
+                        @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->title }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -160,12 +159,8 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label for="priority">اولویت</label>
-                    <input id="priority" name="priority" type="number" class="form-control" data-required>
-                </div>
-                <div class="col-md-3">
-                    <label for="image">تصویر</label>
-                    <input type="file" id="image" name="image">
+                    <label for="thumbnail">تصویر</label>
+                    <input type="file" id="thumbnail" name="thumbnail">
                 </div>
             </div>
 
@@ -181,7 +176,7 @@
 <script src="{!! config('base.assets_path') !!}/editors/ckeditor/ckeditor.js"></script>
 <script>
     $(document).ready(function(){
-        CKEDITOR.replace('contents');
+        CKEDITOR.replace('content');
     });
 </script>
 @endpush

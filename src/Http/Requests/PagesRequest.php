@@ -27,7 +27,7 @@ class PagesRequest extends FormRequest
             'title' => 'required|string|max:255',
             'brief_text' => 'nullable|string|max:255',
             'contents' => 'nullable|string',
-            'category_id' => 'bail|required|integer|exists:page_categories,id',
+            'category_id' => 'bail|required|integer|exists:shetabit_page_builder_categories,id',
             'image' => 'bail|nullable|image',
             'status' => 'required|integer|in:0,1',
             // 'priority' => 'required|integer|min:1|max:100',
